@@ -23,7 +23,7 @@ TerarangerHubOne::TerarangerHubOne()
   ROS_INFO("node namespace: [%s]", ns_.c_str());
 
   // Publishers
-  range_publisher_ = nh_.advertise<teraranger_array::RangeArray>("teraranger_hub_one", 8);
+  range_publisher_ = nh_.advertise<teraranger_array::RangeArray>("teraranger_hub_one", 1);
 
   // Serial Port init
   serial_port_.setPort(portname_);
@@ -51,6 +51,9 @@ TerarangerHubOne::TerarangerHubOne()
 
   // Set operation Mode
   setMode(BINARY_MODE);
+  // Set operation Mode
+  //ros::Duration(0.5).sleep();
+  //setMode(PRECISE_MODE);
 
   //Initialize  members
   field_of_view = 0.0593;
@@ -186,16 +189,19 @@ void TerarangerHubOne::dynParamCallback(
   if (config.Mode == teraranger_one_cfg::TerarangerHubOne_Fast)
   {
     setMode(FAST_MODE);
+    ROS_INFO("Setting Fast Mode");
   }
 
   if (config.Mode == teraranger_one_cfg::TerarangerHubOne_Precise)
   {
     setMode(PRECISE_MODE);
+    ROS_INFO("Setting Precise Mode");
   }
 
   if (config.Mode == teraranger_one_cfg::TerarangerHubOne_Outdoor)
   {
     setMode(OUTDOOR_MODE);
+    ROS_INFO("Setting Outdoor Mode");
   }
 }
 
